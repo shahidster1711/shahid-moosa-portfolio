@@ -1,0 +1,22 @@
+{
+  "overview": "A professional dark-themed engineering portfolio for Shahid Moosa, a Distributed Systems Engineer specializing in cloud databases and high-scale query optimization. Features a live terminal component, technical blog articles, work history, engineering philosophy, and contact section.",
+  "features": [
+    "Live Terminal interactive component with distributed systems commands",
+    "Technical blog with sample articles on CAP theorem, sharding, and consistency models",
+    "Full work history (SingleStore, AWS, Infosys)",
+    "Engineering philosophy section with 4 pillars",
+    "Dark tech aesthetic with ambient glow effects",
+    "Mobile-responsive design",
+    "SEO-optimized meta tags and Open Graph data"
+  ],
+  "category": "portfolio",
+  "tags": [
+    "portfolio",
+    "engineering",
+    "distributed-systems",
+    "dark-theme",
+    "blog",
+    "resume"
+  ],
+  "last_updated": "2026-04-09T22:13:11.160Z"
+}
