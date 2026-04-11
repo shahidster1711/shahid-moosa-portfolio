@@ -5,23 +5,23 @@ import { useEffect, useRef, useState } from "react";
 
 const TERMINAL_SEQUENCES = [
   {
-    cmd: "$ query_optimizer --analyze \"SELECT * FROM events WHERE ts > NOW() - INTERVAL '7d'\"",
-    out: "> Analyzing query plan... Index scan recommended on (ts, user_id)",
+    cmd: "$ singlestore_diag --cluster prod-sg01 --check replication",
+    out: "> Replication lag: 1ms | Leaf nodes: 8/8 healthy | No stalls detected",
     outColor: "text-primary",
   },
   {
-    cmd: "$ shard_monitor --cluster prod-us-east",
-    out: "> Checking 24 shards... All healthy. Replication lag: 2ms",
-    outColor: "text-primary",
-  },
-  {
-    cmd: "$ consistency_check --model eventual",
-    out: "> CAP theorem mode: AP (Available + Partition tolerant)",
+    cmd: "$ incident --severity P1 --type ingest_pipeline_stall",
+    out: "> Triaging... Pipeline offset stalled at partition 3. Escalating to engineering.",
     outColor: "text-accent",
   },
   {
-    cmd: "$ latency_profile --p99 --service api-gateway",
-    out: "> P99: 12ms | P999: 47ms | Throughput: 142k req/s",
+    cmd: "$ node_health --cluster prod-sg01 --aggregator",
+    out: "> Aggregator memory: 72% | CPU: 41% | Query concurrency: 18 active",
+    outColor: "text-primary",
+  },
+  {
+    cmd: "$ runbook --issue slow_queries --suggest",
+    out: "> Check: missing indexes, skewed partitions, compilation storm, resource contention",
     outColor: "text-primary",
   },
 ];
@@ -172,7 +172,7 @@ export function HeroSection() {
                   <div className="relative w-[140px] h-[140px] rounded-full p-[3px] bg-gradient-to-br from-primary via-primary/60 to-accent/40 shadow-[0_0_32px_4px_oklch(var(--primary)/0.35)]">
                     <img
                       src="/assets/images/headshot.jpeg"
-                      alt="Shahid Moosa - Database Support Engineer"
+                      alt="Shahid Moosa - Database Cloud Support Engineer"
                       className="w-full h-full rounded-full object-cover object-top"
                       data-ocid="hero-headshot"
                     />
@@ -201,7 +201,7 @@ export function HeroSection() {
                   }}
                   aria-hidden="true"
                 />
-                {"// Engineering at Scale"}
+                {"// Cloud Database Support"}
               </p>
               <h1 className="font-display text-5xl lg:text-6xl font-bold leading-tight mb-4 text-foreground text-center lg:text-left">
                 <span className="text-primary text-glow-primary">
@@ -209,7 +209,7 @@ export function HeroSection() {
                 </span>
               </h1>
               <h2 className="font-display text-2xl lg:text-3xl font-semibold text-foreground/80 mb-5 text-center lg:text-left">
-                Database Support Engineer
+                Database Cloud Support Engineer
               </h2>
             </motion.div>
 
@@ -219,9 +219,9 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-md"
             >
-              Specializing in cloud databases, high-scale query optimization,
-              and reliable infrastructure. Building systems that stay standing
-              when everything else breaks.
+              Providing Tier-2/3 enterprise support for cloud databases — from
+              replication and ingest pipeline troubleshooting to high-severity
+              incident management and performance diagnostics.
             </motion.p>
 
             <motion.div
@@ -261,9 +261,9 @@ export function HeroSection() {
               className="flex gap-8 mt-10 pt-8 border-t border-border"
             >
               {[
-                { value: "8+", label: "Years Engineering" },
-                { value: "256", label: "Max Node Clusters" },
-                { value: "38%", label: "P99 Latency Gain" },
+                { value: "5+", label: "Years Experience" },
+                { value: "Tier-2/3", label: "Support Level" },
+                { value: "Enterprise", label: "Clusters" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <p className="font-display text-2xl font-bold text-primary">

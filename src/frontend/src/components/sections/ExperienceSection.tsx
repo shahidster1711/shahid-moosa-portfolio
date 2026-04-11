@@ -12,12 +12,21 @@ const EDUCATION = {
 };
 
 const CERTIFICATIONS = [
-  { name: "AWS Solutions Architect Associate", issuer: "Amazon Web Services" },
-  { name: "Azure Fundamentals (AZ-900)", issuer: "Microsoft" },
-  { name: "Web Application Penetration Testing", issuer: "EC-Council" },
+  {
+    name: "AWS Solutions Architect Associate",
+    issuer: "Amazon Web Services",
+    note: "Expired Dec 2025",
+  },
+  { name: "Azure Fundamentals (AZ-900)", issuer: "Microsoft", note: "" },
+  {
+    name: "Web Application Penetration Testing",
+    issuer: "EC-Council",
+    note: "",
+  },
   {
     name: "Introduction to Cyber Security",
     issuer: "CISCO Networking Academy",
+    note: "",
   },
 ];
 
@@ -45,8 +54,8 @@ export function ExperienceSection() {
             Experience
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl leading-relaxed">
-            8+ years building and operating distributed data infrastructure at
-            companies from startup to hyperscaler.
+            5+ years supporting and operating cloud database infrastructure at
+            companies from global enterprise to hyperscaler.
           </p>
         </motion.div>
 
@@ -205,6 +214,11 @@ export function ExperienceSection() {
                     <p className="text-sm text-muted-foreground mt-0.5 font-mono">
                       {cert.issuer}
                     </p>
+                    {cert.note && (
+                      <p className="text-xs text-muted-foreground/50 mt-0.5 font-mono">
+                        {cert.note}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

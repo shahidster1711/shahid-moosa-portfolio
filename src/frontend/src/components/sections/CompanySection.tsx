@@ -68,7 +68,13 @@ export function CompanySection() {
                         "drop-shadow(0 0 0px transparent)";
                     }}
                   />
-                  <h2 className="font-display text-4xl font-bold text-primary text-glow-primary leading-tight">
+                  <h2
+                    className="font-display text-4xl font-bold leading-tight"
+                    style={{
+                      color: "#EE00F5",
+                      textShadow: "0 0 20px #EE00F5aa, 0 0 40px #EE00F588",
+                    }}
+                  >
                     SingleStore
                   </h2>
                 </div>
@@ -118,19 +124,22 @@ export function CompanySection() {
               {/* Right: Body + CTA */}
               <div className="space-y-4">
                 <p className="text-foreground/90 text-base leading-relaxed">
-                  I'm a Database Support Engineer at SingleStore — the unified
-                  real-time data platform powering some of the world's most
-                  demanding workloads. SingleStore enables enterprises to
+                  I'm a Database Cloud Support Engineer at SingleStore — the
+                  unified real-time data platform powering some of the world's
+                  most demanding workloads. SingleStore enables enterprises to
                   transact, analyze, and search across live data simultaneously,
                   with millisecond latency at massive scale.
                 </p>
                 <p className="text-foreground/90 text-base leading-relaxed">
-                  My role focuses on helping enterprise customers unlock
-                  SingleStore's full potential — incident response and
-                  high-scale infrastructure design. Whether you're running fraud
-                  detection pipelines, IoT analytics, or AI-powered search, I've
-                  likely helped a team similar to yours push the limits of
-                  what's possible.
+                  My role focuses on Tier-2/3 technical support for enterprise
+                  customers running SingleStore in production — diagnosing
+                  replication failures, ingest pipeline stalls, node health
+                  issues, and query performance degradation. I lead
+                  high-severity incident management (P1/P2) following ITIL
+                  processes, collaborate with engineering teams on critical
+                  escalations, and author runbooks and knowledge base articles
+                  to accelerate resolution. If you're running SingleStore or
+                  evaluating it for your stack, I'd love to connect.
                 </p>
 
                 {/* CTA */}
