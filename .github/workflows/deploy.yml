@@ -34,7 +34,7 @@ jobs:
         run: pnpm build
 
       - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@<FULL_LENGTH_COMMIT_SHA_FOR_V4_3_5>
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
