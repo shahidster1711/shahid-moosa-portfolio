@@ -48,6 +48,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 
       - name: Deploy to Hostinger via FTPS
+        id: ftp-deploy
         if: steps.check-deploy.outputs.should-deploy == 'true'
         continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65
@@ -59,3 +60,10 @@ jobs:
           port: 21
           local-dir: src/frontend/dist/
           server-dir: public_html/
+
+      - name: Warn on deploy failure
+        if: steps.ftp-deploy.outcome == 'failure'
+        run: |
+          echo "::warning::FTP deploy failed. Check your FTP_SERVER, FTP_USERNAME, and FTP_PASSWORD secrets and verify the Hostinger server is reachable."
+          echo "## ⚠️ Deploy failed" >> "$GITHUB_STEP_SUMMARY"
+          echo "The FTP deploy step failed. The build artifact is intact — check your FTP credentials and server connectivity, then re-run the workflow." >> "$GITHUB_STEP_SUMMARY"
