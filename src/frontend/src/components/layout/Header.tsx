@@ -10,7 +10,7 @@ const navLinks = [
   { label: "Writing", href: "/#writing" },
   { label: "Experience", href: "/#experience" },
   { label: "Philosophy", href: "/#philosophy" },
-  { label: "L3 Runbook", href: "/runbook", isPage: true },
+  { label: "DB Runbook", href: "/runbook", isPage: true },
 ];
 
 function scrollToSection(id: string) {

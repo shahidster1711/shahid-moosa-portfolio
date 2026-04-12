@@ -27,121 +27,121 @@ export const runbookData: RunbookData = {
   symptomMappings: {
     performance: [
       {
-        symptom: "High compile count",
-        signals: "compiled.*in logs",
-        cause: "Adhoc queries / plan cache churn",
+        symptom: "High query compilation rate",
+        signals: "compilation events in logs",
+        cause: "Ad-hoc queries / plan cache churn",
         confidence: 4,
       },
       {
-        symptom: "Sync→async spikes",
-        signals: "Logs",
-        cause: "CPU pressure / compile fallback",
+        symptom: "Replication mode transitions",
+        signals: "Replication state logs",
+        cause: "CPU pressure / synchronous replication fallback",
         confidence: 4,
       },
       {
-        symptom: "High CPU",
-        signals: "top_stdout",
-        cause: "Compilation / heavy queries",
+        symptom: "High CPU utilization",
+        signals: "OS process monitor",
+        cause: "Query compilation overhead / heavy workloads",
         confidence: 3,
       },
       {
-        symptom: "Ready queue warnings",
-        signals: "ready queue has not decreased",
-        cause: "Scheduler backlog / CPU or locks",
+        symptom: "Scheduler queue buildup",
+        signals: "ready queue warnings in logs",
+        cause: "Worker thread backlog / CPU saturation or lock contention",
         confidence: 3,
       },
     ],
     memory: [
       {
-        symptom: "Nonfatal buffer manager",
-        signals: "Logs",
-        cause: "Query exceeded maximum_memory",
+        symptom: "Buffer manager allocation failure",
+        signals: "Error logs",
+        cause: "Query exceeded configured memory limit",
         confidence: 5,
       },
       {
         symptom: "Query failures (memory)",
-        signals: "Errors",
-        cause: "Table / intermediate memory spike",
+        signals: "Error logs",
+        cause: "Table or intermediate result memory spike",
         confidence: 4,
       },
       {
-        symptom: "OS OOM killer",
-        signals: "dmesg",
-        cause: "Host misconfig or overcommit",
+        symptom: "OS OOM killer triggered",
+        signals: "Kernel ring buffer (dmesg)",
+        cause: "Host memory misconfiguration or memory overcommit",
         confidence: 5,
       },
     ],
     disk: [
       {
-        symptom: "fsync is behind",
-        signals: "Logs",
+        symptom: "Disk flush operations lagging",
+        signals: "Storage subsystem logs",
         cause: "Disk latency / IO bottleneck",
         confidence: 4,
       },
       {
-        symptom: "Retry loop stalling",
-        signals: "Logs",
-        cause: "Storage backpressure",
+        symptom: "Write retry loop stalling",
+        signals: "Storage error logs",
+        cause: "Storage backpressure / queue saturation",
         confidence: 3,
       },
       {
         symptom: "Slow backups",
-        signals: "backup history",
-        cause: "IO saturation",
+        signals: "Backup history / job logs",
+        cause: "IO saturation during backup window",
         confidence: 3,
       },
     ],
     network: [
       {
-        symptom: "ETIMEDOUT",
-        signals: "Logs",
-        cause: "Network OR node overload",
+        symptom: "Connection timeout errors",
+        signals: "Application and DB error logs",
+        cause: "Network congestion OR node overload",
         confidence: 3,
       },
       {
         symptom: "Node disconnects",
-        signals: "Logs",
-        cause: "Infra / NIC / CPU starvation",
+        signals: "Cluster health logs",
+        cause: "Infrastructure failure / NIC errors / CPU starvation",
         confidence: 3,
       },
     ],
     workload: [
       {
-        symptom: "Many active queries",
-        signals: "processlist",
-        cause: "Query pileup",
+        symptom: "Many concurrent active queries",
+        signals: "Active session list",
+        cause: "Query pileup / insufficient concurrency slots",
         confidence: 3,
       },
       {
-        symptom: "Sleeping + open txns",
-        signals: "processlist",
-        cause: "App bug / connection misuse",
+        symptom: "Idle connections with open transactions",
+        signals: "Active session list",
+        cause: "Application bug / connection pool misuse",
         confidence: 4,
       },
       {
-        symptom: "Large memory tables",
-        signals: "show table status",
-        cause: "Skew / bad schema",
+        symptom: "Large in-memory tables",
+        signals: "Table metadata statistics",
+        cause: "Data skew / poorly designed schema",
         confidence: 3,
       },
     ],
     replication: [
       {
-        symptom: "Missing replicas",
-        signals: "cluster status",
-        cause: "Node failure",
+        symptom: "Missing synchronous replicas",
+        signals: "Cluster topology status",
+        cause: "Node failure / replica lag",
         confidence: 4,
       },
       {
-        symptom: "Slow writes",
-        signals: "logs",
-        cause: "sync replication lag",
+        symptom: "Slow write throughput",
+        signals: "Write latency metrics / logs",
+        cause: "Synchronous replication lag on slow replicas",
         confidence: 3,
       },
       {
-        symptom: "Failover events",
-        signals: "logs",
-        cause: "instability / restart",
+        symptom: "Unexpected failover events",
+        signals: "Cluster event logs",
+        cause: "Node instability / unexpected restarts",
         confidence: 3,
       },
     ],
@@ -153,23 +153,23 @@ export const runbookData: RunbookData = {
       options: [
         {
           label: "No → Availability Path",
-          next: "Check cluster status → Node offline? → Check logs for restart/crash → Check dmesg for OOM → Check disk full?",
+          next: "Check cluster topology status → Node offline? → Inspect logs for restart/crash → Check OS OOM events → Check disk capacity",
         },
         {
           label: "Yes → Are queries slow?",
-          next: "Check CPU (top) → High? Check compile count + sync→async spikes → Check disk: fsync behind? → Check processlist: long-running queries?",
+          next: "Check CPU utilization → High? Check query compilation rate + replication mode transitions → Check disk: flush operations lagging? → Check session list: long-running queries?",
         },
         {
           label: "Query failures?",
-          next: "Memory errors? → Check Nonfatal logs → Compare maximum_memory vs usage → Check table memory",
+          next: "Memory errors? → Check buffer manager logs → Compare memory limits vs actual usage → Inspect large in-memory tables",
         },
         {
-          label: "ETIMEDOUT present?",
-          next: "Check NIC errors → Check CPU saturation → Check leaf responsiveness",
+          label: "Connection timeouts present?",
+          next: "Check NIC errors → Check CPU saturation → Check worker node responsiveness",
         },
         {
           label: "Writes slow?",
-          next: "fsync behind? → Retry loop stalling? → Disk usage >85%?",
+          next: "Disk flush lagging? → Write retry loop stalling? → Disk usage >85%?",
         },
       ],
     },
@@ -177,34 +177,65 @@ export const runbookData: RunbookData = {
 
   deepDiveModules: [
     {
-      title: "Module A: Compilation Storm",
-      indicators: ["High compile/hour", "sync → async transitions"],
-      rootCauses: ["Non-parameterized queries", "Query churn"],
-      fixes: ["Parameterize queries", "Increase plancache efficiency"],
+      title: "Module A: Query Compilation Bottleneck",
+      indicators: [
+        "High query compilation rate per hour",
+        "Frequent synchronous-to-asynchronous replication transitions",
+      ],
+      rootCauses: [
+        "Non-parameterized or dynamically generated SQL queries",
+        "Plan cache eviction due to query churn",
+      ],
+      fixes: [
+        "Parameterize all application queries to enable plan reuse",
+        "Tune plan cache size and eviction thresholds",
+      ],
     },
     {
       title: "Module B: Memory Pressure",
-      indicators: ["Nonfatal buffer manager logs", "Query failures"],
-      steps: ["Compare maximum_memory vs Total_server_memory"],
+      indicators: [
+        "Buffer manager allocation failure events in logs",
+        "Query failures with out-of-memory errors",
+      ],
+      steps: [
+        "Compare configured memory limit vs actual server memory",
+        "Identify top memory-consuming queries from session stats",
+        "Check for large intermediate result sets or in-memory table accumulation",
+      ],
     },
     {
       title: "Module C: Disk Bottleneck",
-      indicators: ["fsync lag", "backup slowdown"],
-      steps: ["Check disk latency", "Check blob size growth"],
+      indicators: [
+        "Disk flush operation lag warnings",
+        "Backup jobs running significantly slower than baseline",
+      ],
+      steps: [
+        "Measure disk read/write latency using OS-level IO stats",
+        "Check for data growth causing storage capacity issues",
+        "Identify competing IO workloads (backups, snapshots, compaction)",
+      ],
     },
     {
       title: "Module D: Network vs CPU Ambiguity",
-      indicators: ["ETIMEDOUT errors"],
+      indicators: ["Connection timeout errors appearing intermittently"],
       steps: [
-        "CPU high → NOT network",
-        "NIC errors → IS network",
-        "Disk slow → cascading timeout",
+        "If CPU is high → root cause is likely compute, not network",
+        "If NIC errors present in OS logs → root cause is network layer",
+        "If disk IO is slow → timeouts may be cascading from storage latency",
+        "Correlate all three signals before concluding",
       ],
     },
     {
       title: "Module E: Replication Issues",
-      indicators: ["Missing sync replicas", "Partition role imbalance"],
-      steps: ["Check partition roles", "Check missing sync replicas"],
+      indicators: [
+        "Missing or lagging synchronous replicas in cluster status",
+        "Shard role imbalance across worker nodes",
+      ],
+      steps: [
+        "Inspect shard roles and replica assignment across all nodes",
+        "Check for missing synchronous replicas and identify cause",
+        "Review replication lag metrics and identify the slowest replica",
+      ],
     },
   ],
 
@@ -212,28 +243,32 @@ export const runbookData: RunbookData = {
     {
       rule: 1,
       title: "Never trust a single signal",
-      detail: "Always correlate: Logs + OS + InfoSchema",
+      detail:
+        "Always correlate: application logs + OS metrics + database metadata. One signal misleads; three signals converge on truth.",
     },
     {
       rule: 2,
-      title: "Time correlation > raw logs",
-      detail: "Focus on spikes, not totals",
+      title: "Time correlation beats raw counts",
+      detail:
+        "Focus on spikes and inflection points, not running totals. When did the metric deviate from baseline?",
     },
     {
       rule: 3,
       title: "Weakest node defines the cluster",
-      detail: "One bad leaf → fanout slowdown for all queries",
+      detail:
+        "One degraded worker node creates fanout slowdowns across all queries routed through it.",
     },
     {
       rule: 4,
-      title: "Aggregator vs Leaf separation",
+      title: "Coordinator vs worker node separation",
       detail:
-        "Aggregator → compile, routing issues. Leaf → memory, disk issues",
+        "Coordinator nodes surface compilation and routing issues. Worker nodes surface memory and disk issues. Separate them in your investigation.",
     },
     {
       rule: 5,
-      title: "Most incidents are NOT infra",
-      detail: "Top real causes: bad queries, memory misconfig, disk saturation",
+      title: "Most incidents are NOT infrastructure",
+      detail:
+        "Top real causes: bad queries, memory misconfiguration, disk saturation. Blame the workload before the hardware.",
     },
   ],
 };
@@ -247,13 +282,13 @@ export const OUTPUT_TEMPLATE = `1. Incident Summary:
    - Signal 2:
 
 3. Correlation:
-   - CPU spike + compile storm → query issue
+   - CPU spike + high compilation rate → query workload issue
 
 4. Root Cause:
    - <specific cause>
 
 5. Supporting Evidence:
-   - logs / metrics
+   - logs / metrics / session data
 
 6. Recommended Fix:
    - Immediate:

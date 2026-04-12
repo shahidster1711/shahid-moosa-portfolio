@@ -90,15 +90,19 @@ function CompanyLogo({ logo, company }: { logo?: string; company: string }) {
   if (logo.startsWith("inline:")) {
     return INLINE_LOGOS[logo] ?? null;
   }
-  return (
-    <img
-      src={logo}
-      alt={company}
-      className="h-7 w-auto object-contain rounded"
-      loading="lazy"
-      decoding="async"
-    />
-  );
+  if (logo.startsWith("http") || logo.startsWith("/")) {
+    return (
+      <img
+        src={logo}
+        alt={`${company} logo`}
+        className="h-7 w-auto object-contain"
+        style={{ filter: "brightness(0) invert(1)", maxWidth: "80px" }}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
+  return null;
 }
 
 export function ExperienceSection() {

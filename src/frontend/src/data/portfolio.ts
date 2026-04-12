@@ -20,7 +20,7 @@ export const experiences: Experience[] = [
   {
     id: "singlestore",
     company: "SingleStore",
-    logo: "inline:singlestore",
+    logo: "https://logo.svgcdn.com/logos/singlestore-icon.svg",
     role: "Database Cloud Support Engineer",
     period: "01/2024 – Present",
     location: "Singapore (Remote)",
@@ -49,7 +49,7 @@ export const experiences: Experience[] = [
   {
     id: "aws",
     company: "Amazon Web Services",
-    logo: "inline:aws",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
     role: "Cloud Support Associate (PostgreSQL)",
     period: "07/2022 – 01/2024",
     location: "Singapore",
@@ -77,7 +77,7 @@ export const experiences: Experience[] = [
   {
     id: "infosys",
     company: "Infosys",
-    logo: "inline:infosys",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg",
     role: "Senior System Associate",
     period: "04/2020 – 07/2022",
     location: "Bengaluru, India",

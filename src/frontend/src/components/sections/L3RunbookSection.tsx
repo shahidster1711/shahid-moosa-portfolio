@@ -338,7 +338,7 @@ function DeepDiveModules() {
           variant="outline"
           className="font-mono text-xs ml-2 text-muted-foreground"
         >
-          L3 Level
+          Advanced Level
         </Badge>
       </div>
 
@@ -456,7 +456,7 @@ function HeuristicsPanel() {
           <Zap className="w-3.5 h-3.5 text-accent" />
         </div>
         <h2 className="font-display text-xl font-semibold text-foreground">
-          L3 Heuristics
+          Expert Heuristics
         </h2>
         <Badge
           variant="outline"
@@ -557,26 +557,22 @@ export function L3RunbookSection() {
           className="mb-12"
         >
           <div className="flex items-center gap-2 mb-3">
-            <img
-              src="https://cdn.brandfetch.io/singlestore.com/w/400/h/400"
-              alt="SingleStore"
-              className="h-6 w-auto object-contain rounded opacity-90"
-            />
             <p className="font-mono text-primary text-sm tracking-widest uppercase">
-              {"// SingleStore L3 Support"}
+              {"// Distributed Database Incident Response"}
             </p>
           </div>
           <h1 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            L3 Incident{" "}
+            Database Incident{" "}
             <span className="text-primary text-glow-primary">
               Investigation
             </span>{" "}
             Runbook
           </h1>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-            Structured exactly like internal escalation playbooks used in
-            high-severity incidents. Battle-tested workflows for diagnosing
-            SingleStore cluster failures.
+            A structured, battle-tested methodology for diagnosing and resolving
+            high-severity incidents in distributed database systems. Covers
+            availability, performance, memory, disk, network, and replication
+            failure patterns.
           </p>
         </motion.div>
 
