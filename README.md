@@ -133,9 +133,10 @@ Upload the entire **contents** of `src/frontend/dist/` (not the folder itself) t
 | Problem | Likely cause | Fix |
 |---------|-------------|-----|
 | Workflow fails with "Login incorrect" | Wrong FTP credentials in secrets | Double-check `FTP_USERNAME` and `FTP_PASSWORD` in GitHub secrets |
-| Workflow fails with "Connection refused" | Wrong hostname or port | Verify `FTP_SERVER` value; the workflow uses FTPS on port 21 |
+| Workflow fails with "Connection refused" or "ENOTFOUND" | Wrong hostname or port | Verify `FTP_SERVER` value; the workflow uses FTPS on port 21. Confirm the hostname in Hostinger's FTP Accounts panel |
 | Site shows old content after deploy | Browser cache | Hard-refresh (`Ctrl+Shift+R`) or clear cache |
 | Routes other than `/` return 404 | Missing `.htaccess` | Ensure the `.htaccess` file was uploaded to `public_html/` |
+| Site root (`/`) returns 403 Forbidden | Apache/LiteSpeed has directory listing disabled and no directory index set | Ensure the `.htaccess` file in `public_html/` contains `DirectoryIndex index.html` at the top |
 
 ---
 
