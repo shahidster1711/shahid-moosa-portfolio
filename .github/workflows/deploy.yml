@@ -37,9 +37,9 @@ jobs:
         id: check-deploy
         run: |
           if [[ -n "$FTP_SERVER" && -n "$FTP_USERNAME" && -n "$FTP_PASSWORD" ]]; then
-            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "should-deploy=true" >> "$GITHUB_OUTPUT"
           else
-            echo "should-deploy=false" >> $GITHUB_OUTPUT
+            echo "should-deploy=false" >> "$GITHUB_OUTPUT"
             echo "Skipping deploy: one or more FTP secrets (FTP_SERVER, FTP_USERNAME, FTP_PASSWORD) are not configured."
           fi
         env:
