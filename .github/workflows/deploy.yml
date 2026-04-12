@@ -27,18 +27,19 @@ jobs:
 
       - name: Install dependencies
         working-directory: src/frontend
-        run: pnpm install --prefer-offline
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Build frontend
         working-directory: src/frontend
         run: pnpm build
 
-      - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@<FULL_LENGTH_COMMIT_SHA_FOR_V4_3_5>
+      - name: Deploy to Hostinger via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
           port: 21
           local-dir: src/frontend/dist/
           server-dir: public_html/

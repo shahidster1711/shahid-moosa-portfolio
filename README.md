@@ -9,11 +9,11 @@ The portfolio is a static React SPA built with Vite. It is automatically built a
 
 Go to **GitHub → Settings → Secrets and variables → Actions → New repository secret** and add the following three secrets:
 
-| Secret name    | Value                          |
-|----------------|-------------------------------|
-| `FTP_SERVER`   | `37.44.245.121`               |
-| `FTP_USERNAME` | `u873719529.shahidster.tech`  |
-| `FTP_PASSWORD` | _(your Hostinger FTP password)_ |
+| Secret name    | Value                                                                 |
+|----------------|-----------------------------------------------------------------------|
+| `FTP_SERVER`   | Your Hostinger FTP hostname (find it in **Hosting → FTP Accounts**)  |
+| `FTP_USERNAME` | Your Hostinger FTP username (same panel)                             |
+| `FTP_PASSWORD` | Your Hostinger FTP password                                          |
 
 After adding the secrets, push to `main` and the workflow will build the frontend and upload the output to `public_html/` on Hostinger automatically.
 
