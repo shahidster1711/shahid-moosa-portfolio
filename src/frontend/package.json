@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && pnpm copy:env",
+    "build": "vite build && pnpm copy:env && pnpm copy:htaccess",
     "copy:env": "cp env.json dist/",
+    "copy:htaccess": "cp public/.htaccess dist/",
     "typecheck": "tsc --noEmit",
     "check": "biome check src",
     "fix": "biome check --write src"
