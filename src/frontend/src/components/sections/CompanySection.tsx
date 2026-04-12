@@ -54,20 +54,17 @@ export function CompanySection() {
               {/* Left: Company identity */}
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <img
-                    src="https://cdn.brandfetch.io/singlestore.com/w/400/h/400"
-                    alt="SingleStore"
-                    className="h-10 w-auto object-contain rounded-md transition-shadow duration-300"
-                    style={{ filter: "drop-shadow(0 0 0px transparent)" }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.filter =
-                        "drop-shadow(0 0 8px oklch(0.78 0.18 190 / 0.7))";
+                  <span
+                    className="inline-flex items-center justify-center h-10 px-3 rounded-md font-bold text-base tracking-tight select-none"
+                    style={{
+                      background: "#EE00F520",
+                      color: "#EE00F5",
+                      border: "1px solid #EE00F550",
                     }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.filter =
-                        "drop-shadow(0 0 0px transparent)";
-                    }}
-                  />
+                    aria-label="SingleStore"
+                  >
+                    SS
+                  </span>
                   <h2
                     className="font-display text-4xl font-bold leading-tight"
                     style={{

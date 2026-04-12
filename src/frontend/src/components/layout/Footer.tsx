@@ -4,11 +4,6 @@ import { ExternalLink, Linkedin, Mail, MapPin } from "lucide-react";
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const hostname =
-    typeof window !== "undefined"
-      ? window.location.hostname
-      : "shahidster.tech";
-  const caffeineUrl = `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(hostname)}`;
 
   return (
     <footer className="bg-card border-t border-border/50 mt-24">
@@ -89,20 +84,9 @@ export function Footer() {
 
         <Separator className="bg-border/40 mb-8" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center justify-center">
           <p className="text-muted-foreground text-xs">
             © {year} {personalInfo.name}. All rights reserved.
-          </p>
-          <p className="text-muted-foreground text-xs">
-            Built with love using{" "}
-            <a
-              href={caffeineUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 transition-colors duration-200"
-            >
-              caffeine.ai
-            </a>
           </p>
         </div>
       </div>

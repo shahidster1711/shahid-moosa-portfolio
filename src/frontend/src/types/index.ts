@@ -70,6 +70,17 @@ export interface IncidentCategory {
   examples: string;
 }
 
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  technologies: string[];
+  period: string;
+  type: string;
+  status: "Live" | "In Progress";
+  url?: string;
+}
+
 export interface RunbookData {
   incidentCategories: IncidentCategory[];
   symptomMappings: Record<string, SymptomMapping[]>;

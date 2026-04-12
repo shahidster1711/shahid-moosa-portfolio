@@ -3,28 +3,35 @@ import { Separator } from "@/components/ui/separator";
 import { experiences } from "@/data/portfolio";
 import { Award, Calendar, GraduationCap, MapPin } from "lucide-react";
 import { motion } from "motion/react";
+import type React from "react";
 
 const EDUCATION = {
-  school: "Jain University",
-  degree: "Bachelor of Computer Applications",
-  period: "2013 – 2016",
+  school: "Jain (Deemed-to-be University)",
+  degree: "Bachelor of Computer Applications (BCA)",
+  specialization: "Cloud Technology and Information Security",
+  year: "2020",
+  grade: "7.4/10",
   location: "Bengaluru, India",
 };
 
 const CERTIFICATIONS = [
   {
-    name: "AWS Solutions Architect Associate",
+    name: "AWS Certified Solutions Architect – Associate",
     issuer: "Amazon Web Services",
-    note: "Expired Dec 2025",
+    note: "Expired: 2025",
   },
-  { name: "Azure Fundamentals (AZ-900)", issuer: "Microsoft", note: "" },
+  {
+    name: "Microsoft Certified: Azure Fundamentals (AZ-900)",
+    issuer: "Microsoft",
+    note: "",
+  },
   {
     name: "Web Application Penetration Testing",
     issuer: "EC-Council",
     note: "",
   },
   {
-    name: "Introduction to Cyber Security",
+    name: "Cyber Security For Business",
     issuer: "CISCO Networking Academy",
     note: "",
   },
@@ -35,6 +42,64 @@ const COMPANY_COLORS: Record<string, string> = {
   "Amazon Web Services": "text-accent",
   Infosys: "text-foreground/70",
 };
+
+const INLINE_LOGOS: Record<string, React.ReactElement> = {
+  "inline:singlestore": (
+    <span
+      className="inline-flex items-center justify-center h-7 px-2 rounded font-bold text-sm tracking-tight select-none"
+      style={{
+        background: "#EE00F520",
+        color: "#EE00F5",
+        border: "1px solid #EE00F540",
+      }}
+      aria-label="SingleStore"
+    >
+      SS
+    </span>
+  ),
+  "inline:aws": (
+    <span
+      className="inline-flex items-center justify-center h-7 px-2 rounded font-bold text-sm tracking-tight select-none"
+      style={{
+        background: "#FF990020",
+        color: "#FF9900",
+        border: "1px solid #FF990040",
+      }}
+      aria-label="AWS"
+    >
+      AWS
+    </span>
+  ),
+  "inline:infosys": (
+    <span
+      className="inline-flex items-center justify-center h-7 px-2 rounded font-bold text-sm tracking-tight select-none"
+      style={{
+        background: "#00728520",
+        color: "#007285",
+        border: "1px solid #00728540",
+      }}
+      aria-label="Infosys"
+    >
+      Infosys
+    </span>
+  ),
+};
+
+function CompanyLogo({ logo, company }: { logo?: string; company: string }) {
+  if (!logo) return null;
+  if (logo.startsWith("inline:")) {
+    return INLINE_LOGOS[logo] ?? null;
+  }
+  return (
+    <img
+      src={logo}
+      alt={company}
+      className="h-7 w-auto object-contain rounded"
+      loading="lazy"
+      decoding="async"
+    />
+  );
+}
 
 export function ExperienceSection() {
   return (
@@ -54,8 +119,8 @@ export function ExperienceSection() {
             Experience
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl leading-relaxed">
-            5+ years supporting and operating cloud database infrastructure at
-            companies from global enterprise to hyperscaler.
+            Nearly 6 years supporting and operating cloud database
+            infrastructure at companies from global enterprise to hyperscaler.
           </p>
         </motion.div>
 
@@ -84,13 +149,7 @@ export function ExperienceSection() {
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div>
                       <div className="flex items-center gap-2">
-                        {exp.logo && (
-                          <img
-                            src={exp.logo}
-                            alt={exp.company}
-                            className="h-7 w-auto object-contain rounded"
-                          />
-                        )}
+                        <CompanyLogo logo={exp.logo} company={exp.company} />
                         <h3
                           className={`font-display text-xl font-bold ${COMPANY_COLORS[exp.company] ?? "text-foreground"}`}
                         >
@@ -172,10 +231,17 @@ export function ExperienceSection() {
               <p className="text-muted-foreground text-base mt-1">
                 {EDUCATION.degree}
               </p>
-              <div className="flex items-center gap-3 mt-3 text-xs font-mono text-muted-foreground/70">
+              <p className="text-muted-foreground/70 text-sm mt-0.5">
+                Specialization: {EDUCATION.specialization}
+              </p>
+              <div className="flex flex-wrap items-center gap-3 mt-3 text-xs font-mono text-muted-foreground/70">
+                <span className="flex items-center gap-1">
+                  <GraduationCap className="w-3 h-3" />
+                  {EDUCATION.grade}
+                </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
-                  {EDUCATION.period}
+                  {EDUCATION.year}
                 </span>
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3 h-3" />

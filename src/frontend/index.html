@@ -3,13 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shahid Moosa — Distributed Systems Engineer</title>
-    <meta name="description" content="Personal engineering portfolio of Shahid Moosa, specializing in cloud databases, high-scale query optimization, and reliable distributed infrastructure." />
-    <meta property="og:title" content="Shahid Moosa — Distributed Systems Engineer" />
-    <meta property="og:description" content="Personal engineering portfolio of Shahid Moosa, specializing in cloud databases, high-scale query optimization, and reliable distributed infrastructure." />
+    <title>Shahid Moosa — Senior Database Support Engineer</title>
+    <meta name="description" content="Personal engineering portfolio of Shahid Moosa, specializing in cloud databases, distributed systems, and reliable high-scale infrastructure." />
+    <meta property="og:title" content="Shahid Moosa — Senior Database Support Engineer" />
+    <meta property="og:description" content="Personal engineering portfolio of Shahid Moosa, specializing in cloud databases, distributed systems, and reliable high-scale infrastructure." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
+    <link rel="apple-touch-icon" href="/assets/images/logo.svg" />
+
+    <!-- Preconnect to nothing external — all fonts are self-hosted -->
+
+    <!-- Preload hero headshot (LCP element) — WebP responsive -->
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/images/headshot.webp"
+      type="image/webp"
+      imagesrcset="./assets/images/headshot.webp 1x, ./assets/images/headshot-2x.webp 2x"
+      imagesizes="192px"
+    />
+
+    <!-- Preload critical above-fold fonts (display + body only) -->
+    <link rel="preload" as="font" href="/assets/fonts/SpaceGrotesk.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/assets/fonts/GeneralSans.woff2" type="font/woff2" crossorigin />
+
+    <!-- Critical CSS: paint header + hero background immediately, avoid FOUC -->
+    <style>
+      *,::before,::after{box-sizing:border-box}
+      html{font-size:16px;color-scheme:dark}
+      body{margin:0;background:oklch(0.12 0.01 260);color:oklch(0.92 0.01 260);-webkit-font-smoothing:antialiased}
+      #root{min-height:100vh}
+      /* Block above-fold layout shift for the headshot avatar */
+      .hero-avatar-placeholder{width:140px;height:140px;border-radius:9999px;background:oklch(0.16 0.015 260)}
+    </style>
   </head>
   <body>
     <div id="root"></div>

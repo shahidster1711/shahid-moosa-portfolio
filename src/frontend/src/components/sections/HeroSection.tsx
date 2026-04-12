@@ -1,3 +1,4 @@
+import { VoiceIntroButton } from "@/components/ui/VoiceIntroButton";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Terminal } from "lucide-react";
 import { motion } from "motion/react";
@@ -95,8 +96,11 @@ function LiveTerminal() {
         </div>
         <div className="ml-auto flex items-center">
           <img
-            src="/assets/images/logo.png"
+            src="/assets/images/logo.svg"
             alt="AI agent"
+            width={20}
+            height={20}
+            decoding="async"
             className="w-5 h-5 object-contain opacity-70"
             style={{ filter: "drop-shadow(0 0 4px oklch(0.7 0.22 200 / 0.6))" }}
             aria-hidden="true"
@@ -142,6 +146,13 @@ function LiveTerminal() {
 }
 
 export function HeroSection() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const id = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(id);
+  }, []);
+
   const handleScrollToWriting = () => {
     document.getElementById("writing")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -160,7 +171,7 @@ export function HeroSection() {
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6 }}
             >
               {/* Headshot avatar */}
@@ -169,13 +180,23 @@ export function HeroSection() {
                   {/* Outer glow ring */}
                   <div className="absolute inset-0 rounded-full bg-primary opacity-30 blur-[16px] scale-110 pointer-events-none" />
                   {/* Border ring */}
-                  <div className="relative w-[140px] h-[140px] rounded-full p-[3px] bg-gradient-to-br from-primary via-primary/60 to-accent/40 shadow-[0_0_32px_4px_oklch(var(--primary)/0.35)]">
-                    <img
-                      src="/assets/images/headshot.jpeg"
-                      alt="Shahid Moosa - Database Cloud Support Engineer"
-                      className="w-full h-full rounded-full object-cover object-top"
-                      data-ocid="hero-headshot"
-                    />
+                  <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full p-[3px] bg-gradient-to-br from-primary via-primary/60 to-accent/40 shadow-[0_0_32px_4px_oklch(var(--primary)/0.35)]">
+                    <picture>
+                      <source
+                        type="image/webp"
+                        srcSet="./assets/images/headshot.webp 1x, ./assets/images/headshot-2x.webp 2x"
+                      />
+                      <img
+                        src="./assets/images/headshot.jpeg"
+                        alt="Shahid Moosa — Senior Database Support Engineer"
+                        width={192}
+                        height={192}
+                        fetchPriority="high"
+                        decoding="async"
+                        className="w-full h-full rounded-full object-cover object-center"
+                        data-ocid="hero-headshot"
+                      />
+                    </picture>
                   </div>
                   {/* Online indicator dot */}
                   <span
@@ -185,48 +206,67 @@ export function HeroSection() {
                 </div>
               </div>
 
+              {/* Voice Intro — entrance after avatar */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
+                className="flex justify-center lg:justify-start mb-5"
+              >
+                <VoiceIntroButton />
+              </motion.div>
+
               <p className="font-mono text-primary text-base lg:text-lg mb-4 tracking-widest uppercase text-center lg:text-left flex items-center justify-center lg:justify-start gap-2">
                 <motion.img
-                  src="/assets/images/logo.png"
+                  src="/assets/images/logo.svg"
                   alt="AI agent logo"
+                  width={20}
+                  height={20}
                   className="w-5 h-5 object-contain"
                   style={{
                     filter: "drop-shadow(0 0 6px oklch(0.7 0.22 200 / 0.75))",
                   }}
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                  }}
+                  animate={
+                    mounted ? { opacity: [0.7, 1, 0.7] } : { opacity: 0.7 }
+                  }
+                  transition={
+                    mounted
+                      ? {
+                          duration: 2.5,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }
+                      : {}
+                  }
                   aria-hidden="true"
                 />
                 {"// Cloud Database Support"}
               </p>
-              <h1 className="font-display text-5xl lg:text-6xl font-bold leading-tight mb-4 text-foreground text-center lg:text-left">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4 text-foreground text-center lg:text-left">
                 <span className="text-primary text-glow-primary">
                   Shahid Moosa
                 </span>
               </h1>
-              <h2 className="font-display text-2xl lg:text-3xl font-semibold text-foreground/80 mb-5 text-center lg:text-left">
-                Database Cloud Support Engineer
+              <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground/80 mb-5 text-center lg:text-left">
+                Senior Database Support Engineer
               </h2>
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-md"
+              className="text-muted-foreground text-base lg:text-lg leading-relaxed mb-8 max-w-md"
             >
-              Providing Tier-2/3 enterprise support for cloud databases — from
-              replication and ingest pipeline troubleshooting to high-severity
-              incident management and performance diagnostics.
+              Nearly 6 years of expertise in Distributed SQL, PostgreSQL
+              internals, and Cloud Infrastructure (AWS/Azure). Specialist in
+              disaster recovery and building full-stack tools to automate
+              engineering workflows.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap gap-3"
             >
@@ -256,7 +296,7 @@ export function HeroSection() {
             {/* Stats */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={mounted ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex gap-8 mt-10 pt-8 border-t border-border"
             >
@@ -280,7 +320,7 @@ export function HeroSection() {
           {/* Right column: terminal */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={mounted ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <LiveTerminal />
@@ -290,7 +330,7 @@ export function HeroSection() {
         {/* Scroll cue */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={mounted ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground/50"
         >

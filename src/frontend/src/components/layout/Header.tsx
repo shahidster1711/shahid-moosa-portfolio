@@ -73,8 +73,11 @@ export function Header() {
           >
             <div className="w-8 h-8 rounded flex items-center justify-center transition-all duration-200 group-hover:drop-shadow-[0_0_8px_oklch(0.7_0.22_200/0.7)]">
               <img
-                src="/assets/images/logo.png"
+                src="/assets/images/logo.svg"
                 alt="Shahid Moosa logo"
+                width={32}
+                height={32}
+                decoding="async"
                 className="w-8 h-8 object-contain"
               />
             </div>

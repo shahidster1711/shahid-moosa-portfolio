@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   :root {
@@ -68,18 +68,44 @@
   font-family: "Space Grotesk";
   src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
   font-display: swap;
+  font-weight: 400 700;
+  font-style: normal;
 }
 
 @font-face {
   font-family: "General Sans";
   src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
   font-display: swap;
+  font-weight: 400 600;
+  font-style: normal;
 }
 
 @font-face {
   font-family: "JetBrains Mono";
   src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
   font-display: swap;
+  font-weight: 400 600;
+  font-style: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes waveform-bar {
+  from {
+    height: 30%;
+  }
+  to {
+    height: 100%;
+  }
 }
 
 @layer utilities {
